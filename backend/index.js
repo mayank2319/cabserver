@@ -5,7 +5,7 @@ const Booking = require('./cabbookeddata')
 // connectToMongo(); // Connected To Mongo
 
 mongoose
-    .connect('mongodb://127.0.0.1:27017/cabservice')
+    .connect('mongodb+srv://root:root@cab.bs5yb1q.mongodb.net/?retryWrites=true&w=majority')
     .then(sucess => console.log({"sucess" : "Mongoose connected sucessfully"}))
     .catch (error => console.log(error));
 
