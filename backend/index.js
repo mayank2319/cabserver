@@ -1,0 +1,36 @@
+const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors')
+const Booking = require('./cabbookeddata')
+// connectToMongo(); // Connected To Mongo
+
+mongoose
+    .connect('mongodb://127.0.0.1:27017/cabservice')
+    .then(sucess => console.log({"sucess" : "Mongoose connected sucessfully"}))
+    .catch (error => console.log(error));
+
+const app = express();
+const port = 5001;
+
+app.use(express.json());
+app.use(cors());
+
+app.post("/book", async (req, res) => {
+  const {email, source, destination, cab,price,time} = req.body;
+  let data = await Booking.create({
+    email: email,
+    cab: cab,
+    source: source,
+    destination: destination,
+    price:price,
+    time:time
+  });
+   
+  await data.save(); // to save data in mongodb compass
+
+  res.send({data});   // 
+})
+
+app.listen(port, () => {
+    console.log(`iNotebook backend listening on port http://localhost:${port}`)
+  })                 //to start the server 
